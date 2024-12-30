@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -61,6 +62,8 @@ func main() {
 	restaurants = append(restaurants, Restaurant{2, "Ram Restro.", "Tiruvannamalai KK nagar", 2, "Veg-Only", foods})
 
 	http.HandleFunc("/restaurants", GetRestaurant)
+	http.HandleFunc("/random", randomImageGenerator)
+
 	// http.Handler("/restaurants/:id", getRestaurantById)
 	// http.HandleFunc("/restaurants/add", addRestaurant)
 	http.ListenAndServe(":3000", nil)
@@ -157,6 +160,44 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 
 	}
 	log.Println("GR001-(-)")
+}
+
+func randomImageGenerator(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Set("Content-Type", "application/json")
+	url := "https://dog.ceo/api/breeds/image/random"
+
+	res, err := http.Get(url)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	lBody, lErr := io.ReadAll(res.Body)
+
+	if lErr != nil {
+		fmt.Println("Error to Convert to Json to Byte")
+		return
+	}
+
+	var data map[string]string
+
+	err = json.Unmarshal(lBody, &data)
+
+	if err != nil {
+		fmt.Println("Error to Convert Unmarshal")
+		return
+	}
+
+	jsonData, err := json.Marshal(data)
+
+	if err != nil {
+		fmt.Println("Error to Convert Marshal")
+		return
+	}
+
+	fmt.Println(data)
+	fmt.Fprintf(w, string(jsonData))
 }
 
 // func getRestaurantById(w http.ResponseWriter, r *http.Request){
