@@ -9,7 +9,6 @@ import (
 func main() {
 	// ans := B.Palindrome("malayala")
 	// fmt.Println(ans)
-
 	stu.Add(1, "Sakthi", "Computer Science", 19, true)
 	stu.Add(2, "Ram", " Science", 20, false)
 	stu.Add(3, "Thiru", "Mechanical", 21, false)

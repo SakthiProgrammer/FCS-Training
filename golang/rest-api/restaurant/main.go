@@ -71,10 +71,9 @@ func main() {
 }
 
 func GetRestaurant(w http.ResponseWriter, r *http.Request) {
-
 	(w).Header().Set("Access-Control-Allow-Origin", "*")
 	(w).Header().Set("Content-Type", "application/json")
-	(w).Header().Set("Access-Control-Allow-Methods", "GET")
+	(w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT")
 	(w).Header().Set("Access-Control-Allow-Headers", "USER, Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	// r.Header = http.Header{
 	// 	"Host":          {"www.host.com"},
@@ -157,7 +156,6 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-
 	}
 	log.Println("GR001-(-)")
 }
@@ -201,7 +199,6 @@ func randomImageGenerator(w http.ResponseWriter, r *http.Request) {
 }
 
 // func getRestaurantById(w http.ResponseWriter, r *http.Request){
-
 // }
 
 // func findRestaurantById(id int) int {
