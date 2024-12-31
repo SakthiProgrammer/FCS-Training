@@ -86,6 +86,8 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 
 	q := r.URL.RawQuery
 
+	(r).Header.Get("ID") // to get the header value
+
 	// q1 := r.URL.RawPath
 
 	// fmt.Println(q1)
