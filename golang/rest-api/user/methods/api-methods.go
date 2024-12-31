@@ -25,9 +25,9 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	var lUserRes res.UserRes
 
-	lUser := res.User{1, "sakthi", "sakthiveld@gmail.com", 9047684797}
+	// lUser := res.User{1, "sakthi", "sakthiveld@gmail.com", 9047684797}
 
-	UserData = append(UserData, lUser, res.User{2, "ram", "ram@gmail.com", 1231312313})
+	// UserData = append(UserData, lUser, res.User{2, "ram", "ram@gmail.com", 1231312313})
 	lUserRes.Status = e.SUCCESS_CODE
 
 	lIdStr := r.Header.Get("ID")
@@ -37,17 +37,6 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		lUserRes.ErrMsg = "Method Not Allowed,GET Method Only  Allowed"
 
 	} else {
-		// lData, lErr := json.Marshal(lUserRes)
-		// if lErr != nil {
-
-		// 	log.Println("MGU-001: ", lErr.Error())
-		// 	log.Println(lErr)
-		// 	lUserRes.ErrMsg = lErr.Error() + "MGU-001"
-		// 	lUserRes.Status = e.ERROR_CODE
-		// } else {
-		//
-		// w.WriteHeader(http.StatusMethodNotAllowed)
-		// fmt.Fprintf(w, string(lData))
 
 		if lIdStr == "" {
 
@@ -94,59 +83,23 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 		lUserRes.Status = e.ERROR_CODE
 		lUserRes.ErrMsg = "Method Not Allowed,GET Method Only  Allowed"
-		// lData, lErr := json.Marshal(lUserRes)
 
-		// if lErr != nil {
-		// 	log.Println("Error-02: ", lErr.Error())
-		// 	log.Println(lErr)
-		// 	lUserRes.ErrMsg = lErr.Error()
-		// 	lUserRes.Status = e.ERROR_CODE
-		// } else {
-
-		// 	w.WriteHeader(http.StatusMethodNotAllowed)
-		// 	fmt.Fprintf(w, string(lData))
-		// }
-		// return
 	} else if lIdStr == "" {
 
 		lUserRes.ErrMsg = "Provide a value for id"
 		lUserRes.Status = e.ERROR_CODE
-		// w.WriteHeader(http.StatusBadRequest)
 
-		// lData, lErr := json.Marshal(lUserRes)
-
-		// if lErr != nil {
-		// 	log.Println("Error-01", lErr.Error())
-		// } else {
-		// 	fmt.Fprintf(w, string(lData))
-		// }
 	} else if lerr != nil {
 
 		lUserRes.ErrMsg = "Provide a Value in as a Number"
 		lUserRes.Status = e.ERROR_CODE
-		// w.WriteHeader(http.StatusBadRequest)
 
-		// lData, lErr := json.Marshal(lUserRes)
-
-		// if lErr != nil {
-		// 	log.Println("Error-02", lErr.Error())
-		// } else {
-		// 	fmt.Fprintf(w, string(lData))
-		// }
 	} else if !(lIntId >= 1 && lIntId <= 100) {
 
 		lUserRes.ErrMsg = "Provide a Between 1 to 100"
 		lUserRes.Status = e.ERROR_CODE
 		w.WriteHeader(http.StatusBadRequest)
 
-		// lData, lErr := json.Marshal(lUserRes)
-
-		// if lErr != nil {
-		// 	log.Println("Error-02", lErr.Error())
-		// } else {
-		// 	fmt.Fprintf(w, string(lData))
-		// }
-		// return
 	} else {
 		fmt.Println(UserData)
 
@@ -159,13 +112,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 				lUserRes.ErrMsg = "Success"
 				lUserRes.UserArr = append(lUserRes.UserArr, lUser)
 				break
-				// lData, lErr := json.Marshal(lUserRes)
-				// if lErr != nil {
-				// 	log.Println("Error-03", lErr.Error())
-				// 	w.WriteHeader(http.StatusBadRequest)
-				// } else {
-				// 	fmt.Fprintf(w, string(lData))
-				// }
 			}
 		}
 
@@ -182,7 +128,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Fprintf(w, string(lData))
 	}
-	// w.WriteHeader(http.StatusNotFound)
 
 	log.Println("GetUser-(-)")
 }
@@ -196,9 +141,10 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 
 	// lMethod := r.Header.Get("TYPE")
 
-	log.Println("M003-(+)")
+	log.Println("AddUser-(+)")
 
 	var lUserRes res.UserRes
+	lUserRes.Status = e.SUCCESS_CODE
 
 	if r.Method != http.MethodPost {
 		lUserRes.Status = e.ERROR_CODE
@@ -207,44 +153,74 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		var lUser res.User
-
 		lData, lErr := io.ReadAll(r.Body)
 
 		if lErr != nil {
-
-			log.Println("Error-01: ", lErr.Error())
+			log.Println("MGU-005: ", lErr.Error())
 			log.Println(lErr)
 			lUserRes.ErrMsg = lErr.Error()
 			lUserRes.Status = e.ERROR_CODE
-
 		}
 
 		lErr = json.Unmarshal(lData, &lUser)
 
 		if lErr != nil {
-
-			log.Println("MG: ", lErr.Error())
+			log.Println("MGU-006: ", lErr.Error())
 			log.Println(lErr)
 			lUserRes.ErrMsg = lErr.Error()
 			lUserRes.Status = e.ERROR_CODE
 		} else {
-			UserData = append(UserData, lUser)
-			lUserRes.UserArr = UserData
-			lUserRes.Status = e.SUCCESS_CODE
-			lUserRes.ErrMsg = ""
+
+			if lUser.ID == 0 {
+				lUserRes.Status = e.ERROR_CODE
+				lUserRes.ErrMsg = "ERR: id field is empty"
+			} else if lUser.Name == "" {
+				lUserRes.Status = e.ERROR_CODE
+				lUserRes.ErrMsg = "ERR: name field is empty"
+			} else if lUser.Email == "" {
+				lUserRes.Status = e.ERROR_CODE
+				lUserRes.ErrMsg = "ERR: email field is empty"
+			} else if strconv.Itoa(lUser.PhoneNumber) == "0" {
+				lUserRes.Status = e.ERROR_CODE
+				lUserRes.ErrMsg = "ERR: phonenumber field is empty"
+			} else if 10 != len(strconv.Itoa(lUser.PhoneNumber)) {
+				lUserRes.Status = e.ERROR_CODE
+				lUserRes.ErrMsg = "ERR: Invalid phonenumber, must be 10 digit field is empty"
+
+			} else {
+				UserData = append(UserData, lUser)
+				lUserRes.UserArr = []res.User{UserData[len(UserData)-1]}
+				lUserRes.Status = e.SUCCESS_CODE
+				lUserRes.ErrMsg = ""
+			}
+
 		}
 
-		// idEmpty
+		//marshal
+		lData, lErr = json.Marshal(lUserRes)
 
-		log.Println("M003-(-)")
+		if lErr != nil {
+			log.Println("Error-04", lErr.Error())
+		} else {
+			fmt.Fprintf(w, string(lData))
+		}
 
+		log.Println("AddUser-(-)")
 	}
 }
 
-// func isEmpty(val string) bool{
+func Genderize(w http.ResponseWriter, r *http.Request){
 
-// 	if val == ""{
-// 		return false
-// 	}
 
-// }
+	
+}
+
+//https://api.genderize.io?name=sakthivel
+
+/*{
+    "count": 1949,
+    "name": "sakthivel",
+    "gender": "male",
+    "probability": 0.96
+}
+*/
