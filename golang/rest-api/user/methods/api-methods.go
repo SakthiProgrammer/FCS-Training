@@ -34,7 +34,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodGet {
 		lUserRes.Status = e.ERROR_CODE
-		lUserRes.ErrMsg = "Method Not Allowed,GET Method Only  Allowed"
+		lUserRes.ErrMsg = "Method Not Allowed,GET Method Only  Allowed hello"
 
 	} else {
 
