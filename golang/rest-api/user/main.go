@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	// app "user/apps"
 	m "user/methods"
 )
 
@@ -22,6 +20,5 @@ func main() {
 	http.HandleFunc("/users", m.GetUsers)
 	http.HandleFunc("/user", m.GetUser)
 	http.HandleFunc("/adduser", m.AddUser)
-	// http.HandleFunc("/updateuser")
 	http.ListenAndServe(":3000", nil)
 }

@@ -41,7 +41,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		if lIdStr == "" {
 
 		} else {
-
+			
 		}
 
 		lUserRes.UserArr = UserData
@@ -212,7 +212,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 func Genderize(w http.ResponseWriter, r *http.Request){
 
 
-	
+
 }
 
 //https://api.genderize.io?name=sakthivel
