@@ -1,0 +1,16 @@
+2024/12/31 17:21:26 AddUser-(+)
+2024/12/31 17:21:26 MGU-006:  unexpected end of JSON input
+2024/12/31 17:21:26 unexpected end of JSON input
+2024/12/31 17:21:26 AddUser-(-)
+2024/12/31 17:21:32 AddUser-(+)
+2024/12/31 17:21:32 MGU-006:  unexpected end of JSON input
+2024/12/31 17:21:32 unexpected end of JSON input
+2024/12/31 17:21:32 AddUser-(-)
+2024/12/31 17:21:36 AddUser-(+)
+2024/12/31 17:21:36 AddUser-(-)
+2024/12/31 17:22:20 AddUser-(+)
+2024/12/31 17:22:20 MGU-006:  json: cannot unmarshal string into Go struct field User.phonenumber of type int
+2024/12/31 17:22:20 json: cannot unmarshal string into Go struct field User.phonenumber of type int
+2024/12/31 17:22:20 AddUser-(-)
+2024/12/31 17:22:40 AddUser-(+)
+2024/12/31 17:22:40 AddUser-(-)

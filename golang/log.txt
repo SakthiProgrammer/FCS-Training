@@ -1,0 +1,25 @@
+	log.Println("Server Started")
+	f, err := os.OpenFile("./log/logfile"+time.Now().Format("02012006.15.04.05.000000000")+".txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
+	
+	
+	
+	
+	lErr2 := json.Unmarshal(body, &lPlaceOrderReqArr)
+
+	
+	
+	data, lErr10 := json.Marshal(lResponse)
+	
+	
+	func Api1(w http.ResponseWriter, r *http.Request) {
+	log.Println("Api1 (+)")
+	(w).Header().Set("Access-Control-Allow-Origin", "*")
+	(w).Header().Set("Access-Control-Allow-Methods", "POST")
+	(w).Header().Set("Access-Control-Allow-Headers", "Email,Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	log.Println("r.Method: ", r.Method)
