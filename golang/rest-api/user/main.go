@@ -18,7 +18,9 @@ func main() {
 	log.SetOutput(f)
 
 	http.HandleFunc("/users", m.GetUsers)
-	http.HandleFunc("/user", m.GetUser)
+	// http.HandleFunc("/user", m.GetUser)
 	http.HandleFunc("/adduser", m.AddUser)
+	http.HandleFunc("/updateuser", m.UpdateUser)
+	http.HandleFunc("/tapi", m.GetGendreize)
 	http.ListenAndServe(":3000", nil)
 }
